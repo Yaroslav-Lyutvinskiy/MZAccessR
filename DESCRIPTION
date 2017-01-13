@@ -1,0 +1,15 @@
+Package: mzAccessR
+Type: Package
+Title: R Interface to mzAccess Web-API
+Version: 0.1.0
+Author: Yaroslav Lyutvinskiy <Yaroslav.Lyutvinskiy@ki.se>
+Maintainer: Yaroslav Lyutvinskiy <Yaroslav.Lyutvinskiy@ki.se>
+Description: Prvides access to original unprocessed mass spectrometry data
+    from mzAccess web-service through web-service SOAP API.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Depends: SSOAP
+Imports:
+    methods, XMLSchema, XML
+RoxygenNote: 5.0.1

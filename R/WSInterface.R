@@ -288,9 +288,11 @@ setAs('list', 'ArrayOfDouble',
         new("ArrayOfDouble", as(from, "list")))
 
 
-
+#' @export
 MZRange <- setClass("MZRange", slots = c(MinMZ="numeric", MaxMZ="numeric"))
+#' @export
 RTRange <- setClass("RTRange", slots = c(MinRT="numeric", MaxRT="numeric"))
+#' @export
 LCMSArea <- setClass("LCMSArea", slots = c(RTRange="RTRange", MZRange="MZRange"))
 
 WDSLEnvir = new.env()
@@ -357,9 +359,9 @@ GetChromatogram =
 #' @param RTHigh - Maximum retention time value for LC-MS area requested
 #' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
-#' @return Data frame of Retention Time and Intensities for requested LC-MS area
+#' @return Data frame of Mass, Retention Time and Intensities for requested LC-MS area
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetArea(FileName="010_MOO_Labeling_HIL_72h_0_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
 #' @export
 GetArea =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh, Cache=TRUE, Profile = FALSE){
@@ -374,7 +376,22 @@ GetArea =
     AREA=data.frame(Mass=L[c(TRUE,FALSE,FALSE)],RT=L[c(FALSE,TRUE,FALSE)],Intensity=L[c(FALSE,FALSE,TRUE)])
     return(AREA)
   }
-
+#' Get averaged spectrum
+#'
+#' Get spectrum averaged (or summed) within RT interval
+#' Corresponds to mzAccess web-service API function GetAverageSpectrum
+#' Averaging algorithm is  vendor specific, therefore function has no cache option
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param MZLow - Minimum m/z value to be included in spectrum
+#' @param MZHigh - Maximum m/z value to be included in spectrum
+#' @param RTLow - Minimum retention time value for RT range of averaged spectrum
+#' @param RTHigh - Maximum retention time value for RT range of averaged spectrum
+#' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
+#' @return Data frame of Mass and Intensities for requested LC-MS area
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetAvgSpectrum =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -389,6 +406,22 @@ GetAvgSpectrum =
     return(SPC)
   }
 
+#' Get spectrum for  RT
+#'
+#' Get Single scan spectrum on certain RT.
+#' Web-service will provide first spectrum where RT is not less than specified
+#' Corresponds to mzAccess web-service API function GetSpectrumbyRT
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param MZLow - Minimum m/z value to be included in spectrum
+#' @param MZHigh - Maximum m/z value to be included in spectrum
+#' @param RT - retention time for which spectrum will be searched.
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
+#' @return Data frame of Mass and Intensities for requested LC-MS area
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetSpectrumbyRT =
   function(FileName, MZLow, MZHigh, RT, Cache=TRUE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -403,6 +436,21 @@ GetSpectrumbyRT =
     return(SPC)
   }
 
+#' Get spectrum for scan number
+#'
+#' Get Single scan spectrum for certain scan.
+#' Corresponds to mzAccess web-service API function GetSpectrumbyScanNumber
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param MZLow - Minimum m/z value to be included in spectrum
+#' @param MZHigh - Maximum m/z value to be included in spectrum
+#' @param ScanNumber - scan number for requested spectrum.
+#' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @return Data frame of Mass and Intensities for requested LC-MS area
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetSpectrumbyScanNumber =
   function(FileName, MZLow, MZHigh, ScanNumber, Cache=TRUE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -417,6 +465,19 @@ GetSpectrumbyScanNumber =
     return(SPC)
   }
 
+#' Get scan number for retention time
+#'
+#' Get scan number
+#' Corresponds to mzAccess web-service API function GetScanNumberFromRT
+#' Web-service will provide first scan number  where RT is not less than specified
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param RT - retention time for which spectrum will be searched.
+#' @param Cache - If TRUE scan number will be loaded from fast access cache, if FALSE - from original raw files
+#' @return Interger scan number
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetScanNumberFromRT =
   function(FileName, RT, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -428,6 +489,19 @@ GetScanNumberFromRT =
     return(L)
   }
 
+#' Get retention time for scan number
+#'
+#' Get retention time for scan number
+#' Corresponds to mzAccess web-service API function GetRTFromScanNumber
+#' Web-service will provide first scan number  where RT is not less than specified
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param RT - retention time for which spectrum will be searched.
+#' @param Cache - If TRUE retention time value (in minutes) will be loaded from fast access cache, if FALSE - from original raw files
+#' @return Retention time value
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetRTFromScanNumber =
   function(FileName, ScanNumber, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -440,6 +514,17 @@ GetRTFromScanNumber =
   }
 
 
+#' Get mass range for spectra in file
+#'
+#'  Get mass range for spectra in file
+#' Corresponds to mzAccess web-service API function GetMassRange
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param Cache - If TRUE Mass Range will show minimum amd maximim masses avialable in spectra through the file, if FALSE - it will return Mass Interval where masses were scanned by mass spectrometer
+#' @return MassRange object with slots MinMZ,MaxMZ
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetMassRange =
   function(FileName, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
@@ -451,6 +536,17 @@ GetMassRange =
     return(R)
   }
 
+#' Get retention time range for spectra in file
+#'
+#' Get retention time range for spectra in file
+#' Corresponds to mzAccess web-service API function GetRTRange
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param Cache - If TRUE RT Range will show RTs for first and last spectra in spectra through the file, if FALSE - it will retention time range as registered by mass spectrometer
+#' @return RTRange object with slots MinRT,MaxRT
+#' @examples
+#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' @export
 GetRTRange =
   function(FileName, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)

@@ -23,13 +23,13 @@ GetArea(FileName, MZLow, MZHigh, RTLow, RTHigh, Cache = TRUE,
 \item{Profile}{- If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode}
 }
 \value{
-Data frame of Retention Time and Intensities for requested LC-MS area
+Data frame of Mass, Retention Time and Intensities for requested LC-MS area
 }
 \description{
 Gets all non-zero signals for specified LC-MS area.
 Corresponds to mzAccess web-service API function GetArea
 }
 \examples{
-GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+GetArea(FileName="010_MOO_Labeling_HIL_72h_0_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
 }
 

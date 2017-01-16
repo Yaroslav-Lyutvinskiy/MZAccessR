@@ -1,1 +1,1 @@
-Installation script is in Install.R
+Installation script is in Install.R. Just copy script to command line of your R Studio.

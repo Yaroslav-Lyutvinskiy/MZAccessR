@@ -341,7 +341,7 @@ GetChromatogram =
       MZLow=MZLow, MZHigh = MZHigh,
       RTLow = RTLow, RTHigh = RTHigh ,
       Cache=Cache))
-    if (length(CH1@ErrorMessage)>1) print(CH1@ErrorMessage)
+    if (is.character(CH1@ErrorMessage)) print(CH1@ErrorMessage)
     L=CH1@GetChromatogramResult
     CHR=data.frame(RT=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(CHR)
@@ -371,7 +371,7 @@ GetArea =
       MZLow=MZLow, MZHigh = MZHigh,
       RTLow = RTLow, RTHigh = RTHigh ,
       Cache=Cache, Profile = Profile))
-    if (length(Ar@ErrorMessage)>1) print(Ar@ErrorMessage)
+    if (is.character(Ar@ErrorMessage)) print(Ar@ErrorMessage)
     L=Ar@GetAreaResult
     AREA=data.frame(Mass=L[c(TRUE,FALSE,FALSE)],RT=L[c(FALSE,TRUE,FALSE)],Intensity=L[c(FALSE,FALSE,TRUE)])
     return(AREA)
@@ -390,7 +390,7 @@ GetArea =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 #' @export
 GetAvgSpectrum =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh, Profile = FALSE){
@@ -400,7 +400,7 @@ GetAvgSpectrum =
       MZLow=MZLow, MZHigh = MZHigh,
       RTLow = RTLow, RTHigh = RTHigh ,
       Profile = Profile))
-    if (length(Sp@ErrorMessage)>1) print(Sp@ErrorMessage)
+    if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
     L=Sp@GetAverageSpectrumResult
     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(SPC)
@@ -420,17 +420,17 @@ GetAvgSpectrum =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetSpectrumbyRT("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 #' @export
 GetSpectrumbyRT =
-  function(FileName, MZLow, MZHigh, RT, Cache=TRUE, Profile = FALSE){
+  function(FileName, MZLow, MZHigh, RT, Cache=FALSE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
     Sp=iface@functions$GetSpectrumbyRT(list(
       FileName=FileName,
       MZLow=MZLow, MZHigh = MZHigh,
       RT = RT,
       Cache=Cache, Profile = Profile))
-    if (length(Sp@ErrorMessage)>1) print(Sp@ErrorMessage)
+    if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
     L=Sp@GetSpectrumbyRTResult
     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(SPC)
@@ -449,7 +449,7 @@ GetSpectrumbyRT =
 #' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetSpectrumbyScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
 #' @export
 GetSpectrumbyScanNumber =
   function(FileName, MZLow, MZHigh, ScanNumber, Cache=TRUE, Profile = FALSE){
@@ -459,8 +459,8 @@ GetSpectrumbyScanNumber =
       MZLow=MZLow, MZHigh = MZHigh,
       ScanNumber = ScanNumber,
       Cache=Cache, Profile = Profile))
-    if (length(Sp@ErrorMessage)>1) print(Sp@ErrorMessage)
-    L=Sp@GetSpectrumbyScanNumber
+    if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
+    L=Sp@GetSpectrumbyScanNumberResult
     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(SPC)
   }
@@ -476,7 +476,7 @@ GetSpectrumbyScanNumber =
 #' @param Cache - If TRUE scan number will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Interger scan number
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetScanNumberFromRT("031_MOO_Labeling_HIL_72h_100_3d_MM",6)
 #' @export
 GetScanNumberFromRT =
   function(FileName, RT, Cache=FALSE){
@@ -484,7 +484,7 @@ GetScanNumberFromRT =
     Scan=iface@functions$GetScanNumberFromRT(list(
       FileName=FileName,
       RT = RT, Cache=Cache))
-    if (length(Scan@ErrorMessage)>1) print(Scan@ErrorMessage)
+    if (is.character(Scan@ErrorMessage)) print(Scan@ErrorMessage)
     L=Scan@GetScanNumberFromRTResult
     return(L)
   }
@@ -500,7 +500,7 @@ GetScanNumberFromRT =
 #' @param Cache - If TRUE retention time value (in minutes) will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Retention time value
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetRTFromScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM",1000)
 #' @export
 GetRTFromScanNumber =
   function(FileName, ScanNumber, Cache=FALSE){
@@ -508,7 +508,7 @@ GetRTFromScanNumber =
     RT=iface@functions$GetRTFromScanNumber(list(
       FileName=FileName,
       ScanNumber = ScanNumber, Cache=Cache))
-    if (length(RT@ErrorMessage)>1) print(RT@ErrorMessage)
+    if (is.character(RT@ErrorMessage)) print(RT@ErrorMessage)
     L=RT@GetRTFromScanNumberResult
     return(L)
   }
@@ -523,14 +523,14 @@ GetRTFromScanNumber =
 #' @param Cache - If TRUE Mass Range will show minimum amd maximim masses avialable in spectra through the file, if FALSE - it will return Mass Interval where masses were scanned by mass spectrometer
 #' @return MassRange object with slots MinMZ,MaxMZ
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetMassRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
 #' @export
 GetMassRange =
   function(FileName, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
     Range=iface@functions$GetMassRange(
       list(FileName=FileName, Cache=Cache))
-    if (length(Range@ErrorMessage)>1) print(Range@ErrorMessage)
+    if (is.character(Range@ErrorMessage)) print(Range@ErrorMessage)
     R=MZRange(MinMZ=Range@GetMassRangeResult[1],
               MaxMZ=Range@GetMassRangeResult[2])
     return(R)
@@ -545,14 +545,14 @@ GetMassRange =
 #' @param Cache - If TRUE RT Range will show RTs for first and last spectra in spectra through the file, if FALSE - it will retention time range as registered by mass spectrometer
 #' @return RTRange object with slots MinRT,MaxRT
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetRTRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
 #' @export
 GetRTRange =
   function(FileName, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
     Range=iface@functions$GetRTRange(
       list(FileName=FileName, Cache=Cache))
-    if (length(Range@ErrorMessage)>1) print(Range@ErrorMessage)
+    if (is.character(Range@ErrorMessage)) print(Range@ErrorMessage)
     R=RTRange(MinRT=Range@GetRTRangeResult[1],
               MaxRT=Range@GetRTRangeResult[2])
     return(R)

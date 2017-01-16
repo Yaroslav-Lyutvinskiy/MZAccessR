@@ -19,6 +19,6 @@ Get retention time range for spectra in file
 Corresponds to mzAccess web-service API function GetRTRange
 }
 \examples{
-GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+GetRTRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
 }
 

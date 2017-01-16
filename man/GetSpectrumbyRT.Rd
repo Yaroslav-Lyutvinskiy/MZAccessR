@@ -4,7 +4,7 @@
 \alias{GetSpectrumbyRT}
 \title{Get spectrum for  RT}
 \usage{
-GetSpectrumbyRT(FileName, MZLow, MZHigh, RT, Cache = TRUE, Profile = FALSE)
+GetSpectrumbyRT(FileName, MZLow, MZHigh, RT, Cache = FALSE, Profile = FALSE)
 }
 \arguments{
 \item{FileName}{- Name of original raw mass spectrometry file. Can be stated with or without path and extention}
@@ -28,6 +28,6 @@ Web-service will provide first spectrum where RT is not less than specified
 Corresponds to mzAccess web-service API function GetSpectrumbyRT
 }
 \examples{
-GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+GetSpectrumbyRT("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 }
 

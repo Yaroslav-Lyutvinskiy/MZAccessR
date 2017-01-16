@@ -1,3 +1,4 @@
+
 setClass( 'ArrayOfArrayOfDouble' ,
           representation(
             .Data = 'list') ,

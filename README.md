@@ -1,7 +1,4 @@
-# MZAccessR
-# R Client for MZAccess web-service
-
-# Installation instruction
+Installation instruction
 
 # mzAccessR depends on SSOAP package for SOAP Server connection. 
 # SSOAP enlisted as Bioconductor extras package. 
@@ -16,7 +13,7 @@ library(devtools)
 install_github("Yaroslav-Lyutvinskiy/MZAccessR")
 # Intialize library:
 library(mzAccessR)
-# Setup Server â€“ by default it is KI mzAccess webserver: 
+# Setup Server – by default it is KI mzAccess webserver: 
 SetupServer()
 # And then use the functions of package on your demand, for example, like that:
 GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)

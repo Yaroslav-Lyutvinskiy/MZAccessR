@@ -1,12 +1,12 @@
-##Installation instruction
+"#Installation instruction"
 
-## mzAccessR depends on SSOAP package for SOAP Server connection. 
-## SSOAP enlisted as Bioconductor extras package. 
-## Therefore, to get SSOAP package we need to get access to Bioconductor installation system:
+"# mzAccessR depends on SSOAP package for SOAP Server connection."
+"# SSOAP enlisted as Bioconductor extras package."
+"# Therefore, to get SSOAP package we need to get access to Bioconductor installation system:"
 source("https://bioconductor.org/biocLite.R")
-## And then install SSOAP package:
+"# And then install SSOAP package:"
 biocLite("SSOAP")
-## As mzAccessR located on GitHub we need devtools suite:
+"# As mzAccessR located on GitHub we need devtools suite:"
 install.packages("devtools")
 library(devtools)
 ## And then use install_github function to setup mzAccessR package

@@ -29,6 +29,16 @@ setAs('logical', 'ArrayOfDouble',
         new("ArrayOfDouble", as(from, "logical"))
 )
 
+setClass( 'ArrayOfExSpectraInfo' ,
+          representation(
+            .Data = 'list') ,
+          contains = c( 'list' ) )
+setAs('XMLInternalElementNode', 'ArrayOfExSpectraInfo',
+      function (from, to = "ArrayOfExSpectraInfo", strict = TRUE)
+        xmlSApply(from, as, "ExSpectraInfo")
+)
+
+
 setClass( 'ArrayOfString' ,
           representation(
             .Data = 'character') ,
@@ -50,6 +60,31 @@ setAs('logical', 'ArrayOfString',
         new("ArrayOfString", as(from, "logical"))
 )
 
+
+
+setClass( 'ExSpectraInfo' ,
+          representation(
+            RT = 'numeric',
+            ParentMass = 'numeric',
+            ID = 'integer',
+            MSOrder = 'integer',
+            Desc = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'ExSpectraInfo',
+      function (from, to = "ExSpectraInfo", strict = TRUE)
+        coerceListToS4(from, new("ExSpectraInfo"))
+)
+
+setClass( 'FileListResult.ErrorMessage' ,
+          representation(
+            FileListResult = 'ArrayOfString',
+            ErrorMessage = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FileListResult.ErrorMessage',
+      function (from, to = "FileListResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("FileListResult.ErrorMessage"))
+)
+
 setClass( 'FileName.Cache' ,
           representation(
             FileName = 'character',
@@ -58,6 +93,17 @@ setClass( 'FileName.Cache' ,
 setAs('list', 'FileName.Cache',
       function (from, to = "FileName.Cache", strict = TRUE)
         coerceListToS4(from, new("FileName.Cache"))
+)
+
+setClass( 'FileName.ID.Profile' ,
+          representation(
+            FileName = 'character',
+            ID = 'integer',
+            Profile = 'logical') ,
+          contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FileName.ID.Profile',
+      function (from, to = "FileName.ID.Profile", strict = TRUE)
+        coerceListToS4(from, new("FileName.ID.Profile"))
 )
 
 setClass( 'FileName.MZLow.MZHigh.RT.Cache.Profile' ,
@@ -266,6 +312,28 @@ setAs('list', 'GetSpectrumbyScanNumberResult.ErrorMessage',
 )
 
 
+setClass( 'GetExtraSpectraInfoResult.ErrorMessage' ,
+          representation(
+            GetExtraSpectraInfoResult = 'ArrayOfExSpectraInfo',
+            ErrorMessage = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetExtraSpectraInfoResult.ErrorMessage',
+      function (from, to = "GetExtraSpectraInfoResult.ErrorMessage",
+                strict = TRUE)
+        coerceListToS4(from, new("GetExtraSpectraInfoResult.ErrorMessage"))
+)
+
+setClass( 'GetExtraSpectrumResult.ErrorMessage' ,
+          representation(
+            GetExtraSpectrumResult = 'ArrayOfDouble',
+            ErrorMessage = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetExtraSpectrumResult.ErrorMessage',
+      function (from, to = "GetExtraSpectrumResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetExtraSpectrumResult.ErrorMessage"))
+)
+
+
 setMethod("toSOAP", c("logical", "XMLInternalElementNode", type = "PrimitiveSOAPType"),
           function(obj, con = xmlOutputBuffer(header=""), type = NULL, literal = FALSE, elementFormQualified = FALSE, ...)
           {
@@ -287,6 +355,10 @@ setMethod("toSOAP", c("logical", "XMLInternalElementNode", type = "PrimitiveSOAP
 setAs('list', 'ArrayOfDouble',
       function (from, to = "ArrayOfDouble", strict = TRUE)
         new("ArrayOfDouble", as(from, "list")))
+
+setAs('list', 'ArrayOfString',
+      function (from, to = "ArrayOfString", strict = TRUE)
+        new("ArrayOfString", as(from, "list")))
 
 
 #' @export
@@ -558,4 +630,90 @@ GetRTRange =
               MaxRT=Range@GetRTRangeResult[2])
     return(R)
   }
+
+
+#' Get list of avialable files
+#'
+#' Get list of avialable files by provided mask
+#' Corresponds to mzAccess web-service API function FileList
+#'
+#' @param FileMask - File mask for file search Applied to file name only without extension. Case insensitive. Can contain "*"and "?" mask symbols
+#' @return List of available file names
+#' @examples
+#' FileList("*72h*")
+#' @export
+FileList =
+  function(FileMask = "*"){
+    iface = get("iface", envir = WDSLEnvir)
+    FList =iface@functions$FileList(FileMask)
+    if (is.character(FList@ErrorMessage)) print(FList@ErrorMessage)
+    L = FList@FileListResult@.Data
+    return(L)
+  }
+
+
+#' Get data frame of fragmentation events in requested LC-MS area
+#'
+#' Get data frame of fragmentation events in requested LC-MS area
+#' Corresponds to mzAccess web-service API function GetExtraSpectraInfo
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param MZLow - Minimum parent ion m/z value to be included in event list
+#' @param MZHigh - Maximum parent ion m/z value to be included in event list
+#' @param RTLow - Minimum retention time value to be included in event list
+#' @param RTHigh - Maximum retention time value to be included in event list
+#' @return Data frame of fragmentation events inside of desired LC-MS region
+#' Includes Scan Number (to use with function GetSpectraByScanNumber),
+#' Mass of parent ion,
+#' Retention time of fragmentation event
+#' MSOrder - if 2 - that is MSMS spectra, if more it is high order MSN spectra
+#' Desc - description of spectrum
+#' @examples
+#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#' @export
+GetFragmentationEvents =
+  function(FileName, MZLow, MZHigh, RTLow, RTHigh){
+    iface = get("iface", envir = WDSLEnvir)
+    SPInfo = iface@functions$GetFragmentationEvents(list(
+      FileName=FileName,
+      MZLow = MZLow, MZHigh = MZHigh,
+      RTLow = RTLow, RTHigh = RTHigh))
+    if (is.character(SPInfo@ErrorMessage)) print(SPInfo@ErrorMessage)
+    df = data.frame(
+      ScanNumber=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@ScanNumber,simplify = TRUE )),
+      ParentMass=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@ParentMass,simplify = TRUE )),
+      RT=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@RT,simplify = TRUE )),
+      MSOrder=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@MSOrder,simplify = TRUE )),
+      Desc = as.character(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@Desc,simplify = TRUE ))
+    )
+    return(df)
+  }
+
+
+#' Get spectrum for ID (Scan Number)
+#'
+#' Get Single scan spectrum for certain scan.
+#' Corresponds to mzAccess web-service API function GetExtraSpectrum
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param ScanNumber - scan number for requested spectrum.
+#' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
+#' @return Data frame of Mass and Intensities for requested spectrum
+#' @examples
+#' GetExtraSpectrum("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 4214)
+#' @export
+# GetExtraSpectrum =
+#   function(FileName, ScanNumber, Profile = FALSE){
+#     iface = get("iface", envir = WDSLEnvir)
+#     Sp=iface@functions$GetExtraSpectrum(list(
+#       FileName=FileName,
+#       ID = ScanNumber,
+#       Profile = Profile))
+#     if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
+#     L=Sp@GetExtraSpectrumResult
+#     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
+#     return(SPC)
+#   }
+
+
 

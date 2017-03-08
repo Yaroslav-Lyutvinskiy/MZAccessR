@@ -29,15 +29,14 @@ setAs('logical', 'ArrayOfDouble',
         new("ArrayOfDouble", as(from, "logical"))
 )
 
-setClass( 'ArrayOfExSpectraInfo' ,
-          representation(
-            .Data = 'list') ,
-          contains = c( 'list' ) )
-setAs('XMLInternalElementNode', 'ArrayOfExSpectraInfo',
-      function (from, to = "ArrayOfExSpectraInfo", strict = TRUE)
-        xmlSApply(from, as, "ExSpectraInfo")
+setClass( 'ArrayOfFragmentationInfo' ,
+	   representation(
+		.Data = 'list') ,
+	   contains = c( 'list' ) )
+setAs('XMLInternalElementNode', 'ArrayOfFragmentationInfo',
+    function (from, to = "ArrayOfFragmentationInfo", strict = TRUE)
+        xmlSApply(from, as, "FragmentationInfo")
 )
-
 
 setClass( 'ArrayOfString' ,
           representation(
@@ -60,21 +59,6 @@ setAs('logical', 'ArrayOfString',
         new("ArrayOfString", as(from, "logical"))
 )
 
-
-
-setClass( 'ExSpectraInfo' ,
-          representation(
-            RT = 'numeric',
-            ParentMass = 'numeric',
-            ID = 'integer',
-            MSOrder = 'integer',
-            Desc = 'character') ,
-          contains = c( 'VirtualSOAPClass' ) )
-setAs('list', 'ExSpectraInfo',
-      function (from, to = "ExSpectraInfo", strict = TRUE)
-        coerceListToS4(from, new("ExSpectraInfo"))
-)
-
 setClass( 'FileListResult.ErrorMessage' ,
           representation(
             FileListResult = 'ArrayOfString',
@@ -95,17 +79,6 @@ setAs('list', 'FileName.Cache',
         coerceListToS4(from, new("FileName.Cache"))
 )
 
-setClass( 'FileName.ID.Profile' ,
-          representation(
-            FileName = 'character',
-            ID = 'integer',
-            Profile = 'logical') ,
-          contains = c( 'VirtualSOAPClass' ) )
-setAs('list', 'FileName.ID.Profile',
-      function (from, to = "FileName.ID.Profile", strict = TRUE)
-        coerceListToS4(from, new("FileName.ID.Profile"))
-)
-
 setClass( 'FileName.MZLow.MZHigh.RT.Cache.Profile' ,
           representation(
             FileName = 'character',
@@ -122,17 +95,18 @@ setAs('list', 'FileName.MZLow.MZHigh.RT.Cache.Profile',
 )
 
 setClass( 'FileName.MZLow.MZHigh.RTLow.RTHigh' ,
-          representation(
-            FileName = 'ArrayOfString',
-            MZLow = 'ArrayOfDouble',
-            MZHigh = 'ArrayOfDouble',
-            RTLow = 'ArrayOfDouble',
-            RTHigh = 'ArrayOfDouble') ,
-          contains = c( 'VirtualSOAPClass' ) )
+	   representation(
+		FileName = 'character',
+		MZLow = 'numeric',
+		MZHigh = 'numeric',
+		RTLow = 'numeric',
+		RTHigh = 'numeric') ,
+	   contains = c( 'VirtualSOAPClass' ) )
 setAs('list', 'FileName.MZLow.MZHigh.RTLow.RTHigh',
-      function (from, to = "FileName.MZLow.MZHigh.RTLow.RTHigh", strict = TRUE)
+    function (from, to = "FileName.MZLow.MZHigh.RTLow.RTHigh", strict = TRUE)
         coerceListToS4(from, new("FileName.MZLow.MZHigh.RTLow.RTHigh"))
 )
+
 
 setClass( 'FileName.MZLow.MZHigh.RTLow.RTHigh.Cache' ,
           representation(
@@ -217,6 +191,74 @@ setAs('list', 'FileName.ScanNumber.Cache',
         coerceListToS4(from, new("FileName.ScanNumber.Cache"))
 )
 
+setClass( 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache' ,
+	   representation(
+		FileNames = 'ArrayOfString',
+		MZLow = 'ArrayOfDouble',
+		MZHigh = 'ArrayOfDouble',
+		RTLow = 'ArrayOfDouble',
+		RTHigh = 'ArrayOfDouble',
+		Cache = 'logical') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache',
+    function (from, to = "FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache", strict = TRUE)
+        coerceListToS4(from, new("FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache"))
+)
+
+setClass( 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache.Profile' ,
+	   representation(
+		FileNames = 'ArrayOfString',
+		MZLow = 'ArrayOfDouble',
+		MZHigh = 'ArrayOfDouble',
+		RTLow = 'ArrayOfDouble',
+		RTHigh = 'ArrayOfDouble',
+		Cache = 'logical',
+		Profile = 'logical') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache.Profile',
+    function (from, to = "FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache.Profile", strict = TRUE)
+        coerceListToS4(from, new("FileNames.MZLow.MZHigh.RTLow.RTHigh.Cache.Profile"))
+)
+
+setClass( 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Profile' ,
+	   representation(
+		FileNames = 'ArrayOfString',
+		MZLow = 'ArrayOfDouble',
+		MZHigh = 'ArrayOfDouble',
+		RTLow = 'ArrayOfDouble',
+		RTHigh = 'ArrayOfDouble',
+		Profile = 'logical') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Profile',
+    function (from, to = "FileNames.MZLow.MZHigh.RTLow.RTHigh.Profile", strict = TRUE)
+        coerceListToS4(from, new("FileNames.MZLow.MZHigh.RTLow.RTHigh.Profile"))
+)
+
+setClass( 'FragmentationInfo' ,
+	   representation(
+		RT = 'numeric',
+		ParentMass = 'numeric',
+		ScanNumber = 'integer',
+		MSOrder = 'integer',
+		Desc = 'character') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'FragmentationInfo',
+    function (from, to = "FragmentationInfo", strict = TRUE)
+        coerceListToS4(from, new("FragmentationInfo"))
+)
+
+setClass( 'GetAreaArrayResult.ErrorMessage' ,
+	   representation(
+		GetAreaArrayResult = 'ArrayOfArrayOfDouble',
+		ErrorMessage = 'character') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetAreaArrayResult.ErrorMessage',
+    function (from, to = "GetAreaArrayResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetAreaArrayResult.ErrorMessage"))
+)
+
+
+
 setClass( 'GetAreaResult.ErrorMessage' ,
           representation(
             GetAreaResult = 'ArrayOfDouble',
@@ -233,10 +275,20 @@ setClass( 'GetAverageSpectrumResult.ErrorMessage' ,
             ErrorMessage = 'character') ,
           contains = c( 'VirtualSOAPClass' ) )
 setAs('list', 'GetAverageSpectrumResult.ErrorMessage',
-      function (from, to = "GetAverageSpectrumResult.ErrorMessage",
-                strict = TRUE)
+      function (from, to = "GetAverageSpectrumResult.ErrorMessage", strict = TRUE)
         coerceListToS4(from, new("GetAverageSpectrumResult.ErrorMessage"))
 )
+
+setClass( 'GetChromatogramArrayResult.ErrorMessage' ,
+	   representation(
+		GetChromatogramArrayResult = 'ArrayOfArrayOfDouble',
+		ErrorMessage = 'character') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetChromatogramArrayResult.ErrorMessage',
+    function (from, to = "GetChromatogramArrayResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetChromatogramArrayResult.ErrorMessage"))
+)
+
 
 setClass( 'GetChromatogramResult.ErrorMessage' ,
           representation(
@@ -246,6 +298,16 @@ setClass( 'GetChromatogramResult.ErrorMessage' ,
 setAs('list', 'GetChromatogramResult.ErrorMessage',
       function (from, to = "GetChromatogramResult.ErrorMessage", strict = TRUE)
         coerceListToS4(from, new("GetChromatogramResult.ErrorMessage"))
+)
+
+setClass( 'GetFragmentationEventsResult.ErrorMessage' ,
+	   representation(
+		GetFragmentationEventsResult = 'ArrayOfFragmentationInfo',
+		ErrorMessage = 'character') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetFragmentationEventsResult.ErrorMessage',
+    function (from, to = "GetFragmentationEventsResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetFragmentationEventsResult.ErrorMessage"))
 )
 
 setClass( 'GetMassRangeResult.ErrorMessage' ,
@@ -290,6 +352,18 @@ setAs('list', 'GetScanNumberFromRTResult.ErrorMessage',
         coerceListToS4(from, new("GetScanNumberFromRTResult.ErrorMessage"))
 )
 
+setClass( 'GetSpectraArrayResult.ErrorMessage' ,
+	   representation(
+		GetSpectraArrayResult = 'ArrayOfArrayOfDouble',
+		ErrorMessage = 'character') ,
+	   contains = c( 'VirtualSOAPClass' ) )
+setAs('list', 'GetSpectraArrayResult.ErrorMessage',
+    function (from, to = "GetSpectraArrayResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetSpectraArrayResult.ErrorMessage"))
+)
+
+
+
 setClass( 'GetSpectrumbyRTResult.ErrorMessage' ,
           representation(
             GetSpectrumbyRTResult = 'ArrayOfDouble',
@@ -309,28 +383,6 @@ setAs('list', 'GetSpectrumbyScanNumberResult.ErrorMessage',
       function (from, to = "GetSpectrumbyScanNumberResult.ErrorMessage",
                 strict = TRUE)
         coerceListToS4(from, new("GetSpectrumbyScanNumberResult.ErrorMessage"))
-)
-
-
-setClass( 'GetExtraSpectraInfoResult.ErrorMessage' ,
-          representation(
-            GetExtraSpectraInfoResult = 'ArrayOfExSpectraInfo',
-            ErrorMessage = 'character') ,
-          contains = c( 'VirtualSOAPClass' ) )
-setAs('list', 'GetExtraSpectraInfoResult.ErrorMessage',
-      function (from, to = "GetExtraSpectraInfoResult.ErrorMessage",
-                strict = TRUE)
-        coerceListToS4(from, new("GetExtraSpectraInfoResult.ErrorMessage"))
-)
-
-setClass( 'GetExtraSpectrumResult.ErrorMessage' ,
-          representation(
-            GetExtraSpectrumResult = 'ArrayOfDouble',
-            ErrorMessage = 'character') ,
-          contains = c( 'VirtualSOAPClass' ) )
-setAs('list', 'GetExtraSpectrumResult.ErrorMessage',
-      function (from, to = "GetExtraSpectrumResult.ErrorMessage", strict = TRUE)
-        coerceListToS4(from, new("GetExtraSpectrumResult.ErrorMessage"))
 )
 
 
@@ -359,6 +411,15 @@ setAs('list', 'ArrayOfDouble',
 setAs('list', 'ArrayOfString',
       function (from, to = "ArrayOfString", strict = TRUE)
         new("ArrayOfString", as(from, "list")))
+
+setAs('matrix', 'ArrayOfArrayOfDouble',
+      function (from, to = "ArrayOfArrayOfDouble", strict = TRUE){
+        Res = new("ArrayOfArrayOfDouble")
+        for(i in 1:dim(from)[2]){
+          Res[[i]]=from[,i]
+        }
+        Res
+     })
 
 
 #' @export
@@ -495,10 +556,10 @@ GetAvgSpectrum =
 #' @examples
 #' GetSpectrumbyRT("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 #' @export
-GetSpectrumbyRT =
+GetSpectrumByRT =
   function(FileName, MZLow, MZHigh, RT, Cache=FALSE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
-    Sp=iface@functions$GetSpectrumbyRT(list(
+    Sp=iface@functions$GetSpectrumByRT(list(
       FileName=FileName,
       MZLow=MZLow, MZHigh = MZHigh,
       RT = RT,
@@ -524,10 +585,10 @@ GetSpectrumbyRT =
 #' @examples
 #' GetSpectrumbyScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
 #' @export
-GetSpectrumbyScanNumber =
+GetSpectrumByScanNumber =
   function(FileName, MZLow, MZHigh, ScanNumber, Cache=TRUE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
-    Sp=iface@functions$GetSpectrumbyScanNumber(list(
+    Sp=iface@functions$GetSpectrumByScanNumber(list(
       FileName=FileName,
       MZLow=MZLow, MZHigh = MZHigh,
       ScanNumber = ScanNumber,
@@ -598,10 +659,10 @@ GetRTFromScanNumber =
 #' @examples
 #' GetMassRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
 #' @export
-GetMassRange =
+GetMZRange =
   function(FileName, Cache=FALSE){
     iface = get("iface", envir = WDSLEnvir)
-    Range=iface@functions$GetMassRange(
+    Range=iface@functions$GetMZRange(
       list(FileName=FileName, Cache=Cache))
     if (is.character(Range@ErrorMessage)) print(Range@ErrorMessage)
     R=MZRange(MinMZ=Range@GetMassRangeResult[1],
@@ -655,9 +716,9 @@ FileList =
 #' Get data frame of fragmentation events in requested LC-MS area
 #'
 #' Get data frame of fragmentation events in requested LC-MS area
-#' Corresponds to mzAccess web-service API function GetExtraSpectraInfo
+#' Corresponds to mzAccess web-service API function GetFragmentationEvents
 #'
-#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param FileName - Name of original raw mass spectrometry file.
 #' @param MZLow - Minimum parent ion m/z value to be included in event list
 #' @param MZHigh - Maximum parent ion m/z value to be included in event list
 #' @param RTLow - Minimum retention time value to be included in event list
@@ -690,30 +751,138 @@ GetFragmentationEvents =
   }
 
 
-#' Get spectrum for ID (Scan Number)
+
+
+#' Get Array of XIC Chromatogram
 #'
-#' Get Single scan spectrum for certain scan.
-#' Corresponds to mzAccess web-service API function GetExtraSpectrum
+#' Batch analog of GetChromatogram function.
+#' Gets array of eXtracted Ion Current (XIC) chromatograms for specified LC-MS areas.
+#' Equal length of incoming lists is assumed.
+#' Corresponds to mzAccess web-service API function GetChromatogramsArray
+#'
+#' @param FileNames - List of names of original raw mass spectrometry file.
+#' @param MZLow - List of minimum m/z values for LC-MS areas requested
+#' @param MZHigh - List of maximum m/z values for LC-MS areas requested
+#' @param RTLow - List of minimum retention time values for LC-MS areas requested
+#' @param RTHigh - List of maximum retention time values for LC-MS areas requested
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @return List of data frames. Each n-th data frame represent single XIC chromatogram specified
+#'  by n-th members of incoming arrays and consist of
+#'  of Retention Time and Intensities for requested LC-MS area
+#' @examples
+#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#' @export
+GetChromatogramArray =
+  function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE){
+    iface = get("iface", envir = WDSLEnvir)
+    ArAr=iface@functions$GetChromatogramArray(list(
+      FileNames=FileNames,
+      MZLow=MZLows,
+      MZHigh=MZHighs,
+      RTLow=RTLows,
+      RTHigh=RTHighs,
+      Cache=Cache))
+    if (is.character(ArAr@ErrorMessage)) print(ArAr@ErrorMessage)
+    Res=lapply(ArAr@GetChromatogramArrayResult,function(L){
+      data.frame(
+        RT=L[c(TRUE,FALSE)],
+        Intensity=L[c(FALSE,TRUE)])})
+    return(Res)
+  }
+
+#' Get Array of LC-MS Area signals
+#'
+#' Batch analog of GetArea function.
+#' Gets List of data frames where each data frame contains all non-zero signals for one of specified LC-MS areas.
+#' Equal length of incoming lists is assumed.
+#' Corresponds to mzAccess web-service API function GetAreasArray
+#'
+#' @param FileNames - List of names of original raw mass spectrometry file.
+#' @param MZLow - List of minimum m/z values for LC-MS areas requested
+#' @param MZHigh - List of maximum m/z values for LC-MS areas requested
+#' @param RTLow - List of minimum retention time values for LC-MS areas requested
+#' @param RTHigh - List of maximum retention time values for LC-MS areas requested
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
+#' @return List of data frames. Each n-th data frame contains Mass, Retention Time and Intensities for all non-zero signals for LC-MS area, specified
+#'  by n-th members of incoming arrays.
+#' @examples
+#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#' @export
+GetAreaArray =
+  function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE,Profile=FALSE){
+    iface = get("iface", envir = WDSLEnvir)
+    ArAr=iface@functions$GetAreaArray(list(
+      FileNames=FileNames,
+      MZLow=MZLows,
+      MZHigh=MZHighs,
+      RTLow=RTLows,
+      RTHigh=RTHighs,
+      Cache=Cache,
+      Profile=Profile))
+    if (is.character(ArAr@ErrorMessage)) print(ArAr@ErrorMessage)
+    Res=lapply(ArAr@GetAreaArrayResult,function(L){
+      data.frame(
+        Mass=L[c(TRUE,FALSE,FALSE)],
+        RT=L[c(FALSE,TRUE,FALSE)],
+        Intensity=L[c(FALSE,FALSE,TRUE)])})
+    return(Res)
+  }
+
+#' Get Array of XIC Chromatogram
+#'
+#' Batch analog of GetChromatogram function.
+#' Gets array of eXtracted Ion Current (XIC) chromatograms for specified LC-MS areas.
+#' Equal length of incoming lists is assumed.
+#' Corresponds to mzAccess web-service API function GetChromatogramsArray
+#'
+#' @param FileNames - List of names of original raw mass spectrometry file.
+#' @param MZLow - List of minimum m/z values for LC-MS areas requested
+#' @param MZHigh - List of maximum m/z values for LC-MS areas requested
+#' @param RTLow - List of minimum retention time values for LC-MS areas requested
+#' @param RTHigh - List of maximum retention time values for LC-MS areas requested
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @return List of data frames. Each n-th data frame represent single XIC chromatogram specified
+#'  by n-th members of incoming arrays and consist of
+#'  of Retention Time and Intensities for requested LC-MS area
+#' @examples
+#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#' @export
+
+#' Get Array of averaged spectra
+#'
+#' Batch analog of GetAveSpectrum  function.
+#' Get Array of spectra averaged (or summed) within desired RT intervals
+#' Corresponds to mzAccess web-service API function GetSpectrumArray
+#' Equal length of incoming lists is assumed.
+#' Averaging algorithm is  vendor specific, therefore function has no cache option
 #'
 #' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
-#' @param ScanNumber - scan number for requested spectrum.
+#' @param MZLow - List of minimum m/z values to be included in spectrum
+#' @param MZHigh - List of maximum m/z values to be included in spectrum
+#' @param RTLow - List of minimum retention time values for RT range of averaged spectrum
+#' @param RTHigh - List of maximum retention time values for RT range of averaged spectrum
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
-#' @return Data frame of Mass and Intensities for requested spectrum
+#' @return List of data frames of Mass and Intensities for requested averaged spectra
 #' @examples
-#' GetExtraSpectrum("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 4214)
+#' GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 #' @export
-# GetExtraSpectrum =
-#   function(FileName, ScanNumber, Profile = FALSE){
-#     iface = get("iface", envir = WDSLEnvir)
-#     Sp=iface@functions$GetExtraSpectrum(list(
-#       FileName=FileName,
-#       ID = ScanNumber,
-#       Profile = Profile))
-#     if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
-#     L=Sp@GetExtraSpectrumResult
-#     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
-#     return(SPC)
-#   }
-
+GetSpectrumArray =
+  function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Profile=FALSE){
+    iface = get("iface", envir = WDSLEnvir)
+    ArAr=iface@functions$GetSpectraArray(list(
+      FileNames=FileNames,
+      MZLow=MZLows,
+      MZHigh=MZHighs,
+      RTLow=RTLows,
+      RTHigh=RTHighs,
+      Profile=Profile))
+    if (is.character(ArAr@ErrorMessage)) print(ArAr@ErrorMessage)
+    Res=lapply(ArAr@GetSpectrumArrayResult,function(L){
+      data.frame(
+        Mass=L[c(TRUE,FALSE)],
+        Intensity=L[c(FALSE,TRUE)])})
+    return(Res)
+  }
 
 

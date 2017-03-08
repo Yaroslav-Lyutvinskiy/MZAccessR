@@ -7,7 +7,7 @@
 GetFragmentationEvents(FileName, MZLow, MZHigh, RTLow, RTHigh)
 }
 \arguments{
-\item{FileName}{- Name of original raw mass spectrometry file. Can be stated with or without path and extention}
+\item{FileName}{- Name of original raw mass spectrometry file.}
 
 \item{MZLow}{- Minimum parent ion m/z value to be included in event list}
 
@@ -27,7 +27,7 @@ Desc - description of spectrum
 }
 \description{
 Get data frame of fragmentation events in requested LC-MS area
-Corresponds to mzAccess web-service API function GetExtraSpectraInfo
+Corresponds to mzAccess web-service API function GetFragmentationEvents
 }
 \examples{
 GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)

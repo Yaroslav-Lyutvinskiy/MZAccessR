@@ -4,7 +4,7 @@
 \alias{GetSpectrumByScanNumber}
 \title{Get spectrum for scan number}
 \usage{
-GetSpectrumByScanNumber(FileName, MZLow, MZHigh, ScanNumber, Cache = TRUE,
+GetSpectrumByScanNumber(FileName, MZLow, MZHigh, ScanNumber, Cache = FALSE,
   Profile = FALSE)
 }
 \arguments{

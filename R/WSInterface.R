@@ -565,7 +565,7 @@ GetSpectrumByRT =
       RT = RT,
       Cache=Cache, Profile = Profile))
     if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
-    L=Sp@GetSpectrumbyRTResult
+    L=Sp@GetSpectrumByRTResult
     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(SPC)
   }
@@ -586,7 +586,7 @@ GetSpectrumByRT =
 #' GetSpectrumbyScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
 #' @export
 GetSpectrumByScanNumber =
-  function(FileName, MZLow, MZHigh, ScanNumber, Cache=TRUE, Profile = FALSE){
+  function(FileName, MZLow, MZHigh, ScanNumber, Cache=FALSE, Profile = FALSE){
     iface = get("iface", envir = WDSLEnvir)
     Sp=iface@functions$GetSpectrumByScanNumber(list(
       FileName=FileName,
@@ -594,7 +594,7 @@ GetSpectrumByScanNumber =
       ScanNumber = ScanNumber,
       Cache=Cache, Profile = Profile))
     if (is.character(Sp@ErrorMessage)) print(Sp@ErrorMessage)
-    L=Sp@GetSpectrumbyScanNumberResult
+    L=Sp@GetSpectrumByScanNumberResult
     SPC=data.frame(Mass=L[c(TRUE,FALSE)],Intensity=L[c(FALSE,TRUE)])
     return(SPC)
   }

@@ -442,7 +442,7 @@ WDSLEnvir = new.env()
 #' SetupServer()
 #' @export
 SetupServer =
-  function(ServerURL = "http://charon.ad.cmm.se:6060/DevRawFileAccess/MSDataService.asmx?WSDL"){
+  function(ServerURL = "http://charon.ad.cmm.se:6060/MzAccessPublicTest/Service.asmx?WSDL"){
     wsdl = processWSDL(ServerURL)
     assign("wsdl", wsdl, envir = WDSLEnvir)
     iface= genSOAPClientInterface(wsdl)

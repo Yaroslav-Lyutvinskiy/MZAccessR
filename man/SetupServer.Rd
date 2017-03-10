@@ -5,7 +5,7 @@
 \title{Setup for Web-server}
 \usage{
 
-  SetupServer(ServerURL = "http://charon.ad.cmm.se:6060/DevRawFileAccess/MSDataService.asmx?WSDL")
+  SetupServer(ServerURL = "http://charon.ad.cmm.se:6060/MzAccessPublicTest/Service.asmx?WSDL")
 }
 \arguments{
 \item{ServerURL}{- WDSL page of mzAccess web server}

@@ -2,24 +2,12 @@
 % Please edit documentation in R/WSInterface.R
 \name{GetSpectrumArray}
 \alias{GetSpectrumArray}
-\title{Get Array of XIC Chromatogram}
+\title{Get Array of averaged spectra}
 \usage{
 GetSpectrumArray(FileNames, MZLows, MZHighs, RTLows, RTHighs, Profile = FALSE)
 }
 \arguments{
-\item{FileNames}{- List of names of original raw mass spectrometry file.}
-
 \item{Profile}{- If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode}
-
-\item{MZLow}{- List of minimum m/z values for LC-MS areas requested}
-
-\item{MZHigh}{- List of maximum m/z values for LC-MS areas requested}
-
-\item{RTLow}{- List of minimum retention time values for LC-MS areas requested}
-
-\item{RTHigh}{- List of maximum retention time values for LC-MS areas requested}
-
-\item{Cache}{- If TRUE data will be loaded from fast access cache, if FALSE - from original raw files}
 
 \item{FileName}{- Name of original raw mass spectrometry file. Can be stated with or without path and extention}
 
@@ -32,19 +20,16 @@ GetSpectrumArray(FileNames, MZLows, MZHighs, RTLows, RTHighs, Profile = FALSE)
 \item{RTHigh}{- List of maximum retention time values for RT range of averaged spectrum}
 }
 \value{
-List of data frames. Each n-th data frame represent single XIC chromatogram specified
- by n-th members of incoming arrays and consist of
- of Retention Time and Intensities for requested LC-MS area
-
 List of data frames of Mass and Intensities for requested averaged spectra
 }
 \description{
-Batch analog of GetChromatogram function.
-Gets array of eXtracted Ion Current (XIC) chromatograms for specified LC-MS areas.
+Batch analog of GetAveSpectrum  function.
+Get Array of spectra averaged (or summed) within desired RT intervals
+Corresponds to mzAccess web-service API function GetSpectrumArray
 Equal length of incoming lists is assumed.
-Corresponds to mzAccess web-service API function GetChromatogramsArray
+Averaging algorithm is  vendor specific, therefore function has no cache option
 }
 \examples{
-GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 }
 

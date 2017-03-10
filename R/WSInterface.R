@@ -237,10 +237,10 @@ setAs('list', 'FileNames.MZLow.MZHigh.RTLow.RTHigh.Profile',
 setClass( 'FragmentationInfo' ,
 	   representation(
 		RT = 'numeric',
-		ParentMass = 'numeric',
+		ParentMZ = 'numeric',
 		ScanNumber = 'integer',
 		MSOrder = 'integer',
-		Desc = 'character') ,
+		Description = 'character') ,
 	   contains = c( 'VirtualSOAPClass' ) )
 setAs('list', 'FragmentationInfo',
     function (from, to = "FragmentationInfo", strict = TRUE)
@@ -742,10 +742,10 @@ GetFragmentationEvents =
     if (is.character(SPInfo@ErrorMessage)) print(SPInfo@ErrorMessage)
     df = data.frame(
       ScanNumber=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@ScanNumber,simplify = TRUE )),
-      ParentMass=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@ParentMass,simplify = TRUE )),
+      ParentMZ=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@ParentMZ,simplify = TRUE )),
       RT=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@RT,simplify = TRUE )),
       MSOrder=as.numeric(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@MSOrder,simplify = TRUE )),
-      Desc = as.character(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@Desc,simplify = TRUE ))
+      Description = as.character(sapply(SPInfo@GetFragmentationEventsResult,function(x)x@Description,simplify = TRUE ))
     )
     return(df)
   }
@@ -829,25 +829,6 @@ GetAreaArray =
     return(Res)
   }
 
-#' Get Array of XIC Chromatogram
-#'
-#' Batch analog of GetChromatogram function.
-#' Gets array of eXtracted Ion Current (XIC) chromatograms for specified LC-MS areas.
-#' Equal length of incoming lists is assumed.
-#' Corresponds to mzAccess web-service API function GetChromatogramsArray
-#'
-#' @param FileNames - List of names of original raw mass spectrometry file.
-#' @param MZLow - List of minimum m/z values for LC-MS areas requested
-#' @param MZHigh - List of maximum m/z values for LC-MS areas requested
-#' @param RTLow - List of minimum retention time values for LC-MS areas requested
-#' @param RTHigh - List of maximum retention time values for LC-MS areas requested
-#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
-#' @return List of data frames. Each n-th data frame represent single XIC chromatogram specified
-#'  by n-th members of incoming arrays and consist of
-#'  of Retention Time and Intensities for requested LC-MS area
-#' @examples
-#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
-#' @export
 
 #' Get Array of averaged spectra
 #'

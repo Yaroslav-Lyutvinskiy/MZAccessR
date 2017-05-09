@@ -32,6 +32,6 @@ Equal length of incoming lists is assumed.
 Corresponds to mzAccess web-service API function GetChromatogramsArray
 }
 \examples{
-GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+
 }
 

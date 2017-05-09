@@ -7,7 +7,7 @@
 library(mzAccessR)
 
 # Use the mzAccess test service
-SetupServer(ServerURL = "http://charon.ad.cmm.se:6060/MzAccess/TestService.asmx?WSDL")
+SetupServer(ServerURL = "http://charon.ad.cmm.se:6060/MzAccessPublictest/Service.asmx?WSDL")
 
 
 #

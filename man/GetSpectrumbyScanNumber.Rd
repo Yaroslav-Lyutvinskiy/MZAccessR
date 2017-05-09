@@ -28,6 +28,6 @@ Get Single scan spectrum for certain scan.
 Corresponds to mzAccess web-service API function GetSpectrumbyScanNumber
 }
 \examples{
-GetSpectrumbyScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
+GetSpectrumByScanNumber("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
 }
 

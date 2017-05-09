@@ -462,7 +462,7 @@ SetupServer =
 #' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Data frame of Retention Time and Intensities for requested LC-MS area
 #' @examples
-#' GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+#' GetChromatogram("Thermo_QE_cells_72h_LA_3",148.0584342,148.0624342,0,16)
 #' @export
 #' @import XML
 #' @import XMLSchema
@@ -495,7 +495,7 @@ GetChromatogram =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return Data frame of Mass, Retention Time and Intensities for requested LC-MS area
 #' @examples
-#' GetArea(FileName="010_MOO_Labeling_HIL_72h_0_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
+#' GetArea(FileName="Thermo_QE_cells_72h_UL_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
 #' @export
 GetArea =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh, Cache=TRUE, Profile = FALSE){
@@ -524,7 +524,7 @@ GetArea =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
+#' GetAvgSpectrum("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 #' @export
 GetAvgSpectrum =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh, Profile = FALSE){
@@ -554,7 +554,7 @@ GetAvgSpectrum =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetSpectrumbyRT("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
+#' GetSpectrumByRT("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 #' @export
 GetSpectrumByRT =
   function(FileName, MZLow, MZHigh, RT, Cache=FALSE, Profile = FALSE){
@@ -583,7 +583,7 @@ GetSpectrumByRT =
 #' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Data frame of Mass and Intensities for requested LC-MS area
 #' @examples
-#' GetSpectrumbyScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
+#' GetSpectrumByScanNumber("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, ScanNumber = 1000, Profile = TRUE)
 #' @export
 GetSpectrumByScanNumber =
   function(FileName, MZLow, MZHigh, ScanNumber, Cache=FALSE, Profile = FALSE){
@@ -610,7 +610,7 @@ GetSpectrumByScanNumber =
 #' @param Cache - If TRUE scan number will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Interger scan number
 #' @examples
-#' GetScanNumberFromRT("031_MOO_Labeling_HIL_72h_100_3d_MM",6)
+#' GetScanNumberFromRT("Thermo_QE_cells_72h_LA_3",6)
 #' @export
 GetScanNumberFromRT =
   function(FileName, RT, Cache=FALSE){
@@ -634,7 +634,7 @@ GetScanNumberFromRT =
 #' @param Cache - If TRUE retention time value (in minutes) will be loaded from fast access cache, if FALSE - from original raw files
 #' @return Retention time value
 #' @examples
-#' GetRTFromScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM",1000)
+#' GetRTFromScanNumber("Thermo_QE_cells_72h_LA_3",1000)
 #' @export
 GetRTFromScanNumber =
   function(FileName, ScanNumber, Cache=FALSE){
@@ -657,7 +657,7 @@ GetRTFromScanNumber =
 #' @param Cache - If TRUE Mass Range will show minimum amd maximim masses avialable in spectra through the file, if FALSE - it will return Mass Interval where masses were scanned by mass spectrometer
 #' @return MassRange object with slots MinMZ,MaxMZ
 #' @examples
-#' GetMassRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
+#' GetMZRange("Thermo_QE_cells_72h_LA_3")
 #' @export
 GetMZRange =
   function(FileName, Cache=FALSE){
@@ -679,7 +679,7 @@ GetMZRange =
 #' @param Cache - If TRUE RT Range will show RTs for first and last spectra in spectra through the file, if FALSE - it will retention time range as registered by mass spectrometer
 #' @return RTRange object with slots MinRT,MaxRT
 #' @examples
-#' GetRTRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
+#' GetRTRange("Thermo_QE_cells_72h_LA_3")
 #' @export
 GetRTRange =
   function(FileName, Cache=FALSE){
@@ -730,7 +730,7 @@ FileList =
 #' MSOrder - if 2 - that is MSMS spectra, if more it is high order MSN spectra
 #' Desc - description of spectrum
 #' @examples
-#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#'
 #' @export
 GetFragmentationEvents =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh){
@@ -770,7 +770,7 @@ GetFragmentationEvents =
 #'  by n-th members of incoming arrays and consist of
 #'  of Retention Time and Intensities for requested LC-MS area
 #' @examples
-#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#'
 #' @export
 GetChromatogramArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE){
@@ -807,7 +807,7 @@ GetChromatogramArray =
 #' @return List of data frames. Each n-th data frame contains Mass, Retention Time and Intensities for all non-zero signals for LC-MS area, specified
 #'  by n-th members of incoming arrays.
 #' @examples
-#' GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+#'
 #' @export
 GetAreaArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE,Profile=FALSE){
@@ -846,7 +846,7 @@ GetAreaArray =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return List of data frames of Mass and Intensities for requested averaged spectra
 #' @examples
-#' GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
+#'
 #' @export
 GetSpectrumArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Profile=FALSE){

@@ -22,6 +22,6 @@ Corresponds to mzAccess web-service API function GetRTFromScanNumber
 Web-service will provide first scan number  where RT is not less than specified
 }
 \examples{
-GetRTFromScanNumber("031_MOO_Labeling_HIL_72h_100_3d_MM",1000)
+GetRTFromScanNumber("Thermo_QE_cells_72h_LA_3",1000)
 }
 

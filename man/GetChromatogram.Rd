@@ -27,6 +27,6 @@ Gets eXtracted Ion Current (XIC) chromatograms for specified LC-MS area.
 Corresponds to mzAccess web-service API function GetChromatogram
 }
 \examples{
-GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+GetChromatogram("Thermo_QE_cells_72h_LA_3",148.0584342,148.0624342,0,16)
 }
 

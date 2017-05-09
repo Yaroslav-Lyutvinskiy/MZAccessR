@@ -19,6 +19,6 @@ Get mass range for spectra in file
 Corresponds to mzAccess web-service API function GetMassRange
 }
 \examples{
-GetMassRange("031_MOO_Labeling_HIL_72h_100_3d_MM")
+GetMZRange("Thermo_QE_cells_72h_LA_3")
 }
 

@@ -30,6 +30,6 @@ Gets all non-zero signals for specified LC-MS area.
 Corresponds to mzAccess web-service API function GetArea
 }
 \examples{
-GetArea(FileName="010_MOO_Labeling_HIL_72h_0_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
+GetArea(FileName="Thermo_QE_cells_72h_UL_1",149.047,149.074, RTLow = 8.2, RTHigh = 8.5,Profile = TRUE, Cache = FALSE)
 }
 

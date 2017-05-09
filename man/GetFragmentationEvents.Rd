@@ -30,6 +30,6 @@ Get data frame of fragmentation events in requested LC-MS area
 Corresponds to mzAccess web-service API function GetFragmentationEvents
 }
 \examples{
-GetFragmentationEvents("160215_LCMS_QE_pHILIC_Nina_Complete_Labeling_Neg_57", 200, 210, 11, 12)
+
 }
 

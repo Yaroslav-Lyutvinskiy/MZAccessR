@@ -28,6 +28,6 @@ Corresponds to mzAccess web-service API function GetAverageSpectrum
 Averaging algorithm is  vendor specific, therefore function has no cache option
 }
 \examples{
-GetAvgSpectrum("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
+GetAvgSpectrum("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 }
 

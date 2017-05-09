@@ -28,6 +28,6 @@ Web-service will provide first spectrum where RT is not less than specified
 Corresponds to mzAccess web-service API function GetSpectrumbyRT
 }
 \examples{
-GetSpectrumbyRT("031_MOO_Labeling_HIL_72h_100_3d_MM", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
+GetSpectrumByRT("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 }
 

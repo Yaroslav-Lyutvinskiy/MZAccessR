@@ -30,6 +30,6 @@ Get data frame of fragmentation events in requested LC-MS area
 Corresponds to mzAccess web-service API function GetFragmentationEvents
 }
 \examples{
-
+GetFragmentationEvents("Agilent_QTOF_plasma_1.d",200,250,6,6.5)
 }
 

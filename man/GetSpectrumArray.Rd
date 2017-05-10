@@ -30,6 +30,12 @@ Equal length of incoming lists is assumed.
 Averaging algorithm is  vendor specific, therefore function has no cache option
 }
 \examples{
-
+Coordinates for the glutamate peak observed in Figure 2A in reference paper
+mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;
+Get two spectra in profile mode for isotopes envelope at 6th and 8th Minute
+Spectra <- GetSpectrumArray(
+ rep("Thermo_QE_cells_72h_LA_1", 2),
+ rep(mz0 - 1,2),rep(mz0 + 5*d13C + 1,2),
+ c(6,8), c(7,9), TRUE)
 }
 

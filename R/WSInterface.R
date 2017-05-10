@@ -310,14 +310,14 @@ setAs('list', 'GetFragmentationEventsResult.ErrorMessage',
         coerceListToS4(from, new("GetFragmentationEventsResult.ErrorMessage"))
 )
 
-setClass( 'GetMassRangeResult.ErrorMessage' ,
+setClass( 'GetMZRangeResult.ErrorMessage' ,
           representation(
-            GetMassRangeResult = 'ArrayOfDouble',
+            GetMZRangeResult = 'ArrayOfDouble',
             ErrorMessage = 'character') ,
           contains = c( 'VirtualSOAPClass' ) )
-setAs('list', 'GetMassRangeResult.ErrorMessage',
-      function (from, to = "GetMassRangeResult.ErrorMessage", strict = TRUE)
-        coerceListToS4(from, new("GetMassRangeResult.ErrorMessage"))
+setAs('list', 'GetMZRangeResult.ErrorMessage',
+      function (from, to = "GetMZRangeResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetMZRangeResult.ErrorMessage"))
 )
 
 setClass( 'GetRTFromScanNumberResult.ErrorMessage' ,
@@ -651,7 +651,7 @@ GetRTFromScanNumber =
 #' Get mass range for spectra in file
 #'
 #'  Get mass range for spectra in file
-#' Corresponds to mzAccess web-service API function GetMassRange
+#' Corresponds to mzAccess web-service API function GetMZRange
 #'
 #' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
 #' @param Cache - If TRUE Mass Range will show minimum amd maximim masses avialable in spectra through the file, if FALSE - it will return Mass Interval where masses were scanned by mass spectrometer
@@ -665,8 +665,8 @@ GetMZRange =
     Range=iface@functions$GetMZRange(
       list(FileName=FileName, Cache=Cache))
     if (is.character(Range@ErrorMessage)) print(Range@ErrorMessage)
-    R=MZRange(MinMZ=Range@GetMassRangeResult[1],
-              MaxMZ=Range@GetMassRangeResult[2])
+    R=MZRange(MinMZ=Range@GetMZRangeResult[1],
+              MaxMZ=Range@GetMZRangeResult[2])
     return(R)
   }
 
@@ -730,7 +730,7 @@ FileList =
 #' MSOrder - if 2 - that is MSMS spectra, if more it is high order MSN spectra
 #' Desc - description of spectrum
 #' @examples
-#'
+#' GetFragmentationEvents("Agilent_QTOF_plasma_1.d",200,250,6,6.5)
 #' @export
 GetFragmentationEvents =
   function(FileName, MZLow, MZHigh, RTLow, RTHigh){
@@ -770,7 +770,14 @@ GetFragmentationEvents =
 #'  by n-th members of incoming arrays and consist of
 #'  of Retention Time and Intensities for requested LC-MS area
 #' @examples
-#'
+#' Coordinates for the glutamate peak observed in Figure 2A in reference paper
+#' mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;rtMin <- 8; rtMax <- 9;
+#' Get Chromatograms for 1-st and 6-th isotopes
+#'chrom <- GetChromatogramArray(
+#'  rep("Thermo_QE_cells_72h_LA_1", 2),
+#'  c(mz0-dMz, mz0 + 5*d13C - dMz),
+#'  c(mz0+dMz, mz0 + 5*d13C + dMz),
+#'  rep(rtMin, 2), rep(rtMax, 2))
 #' @export
 GetChromatogramArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE){
@@ -807,7 +814,14 @@ GetChromatogramArray =
 #' @return List of data frames. Each n-th data frame contains Mass, Retention Time and Intensities for all non-zero signals for LC-MS area, specified
 #'  by n-th members of incoming arrays.
 #' @examples
-#'
+#' Coordinates for the glutamate peak observed in Figure 2A in reference paper
+#' mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;rtMin <- 8; rtMax <- 9;
+#' Get MZ/RT areas for 1-st and 6-th isotopes
+#' Areas <- GetAreaArray(
+#'  rep("Thermo_QE_cells_72h_LA_1", 2),
+#'  c(mz0-dMz, mz0 + 5*d13C - dMz),
+#'  c(mz0+dMz, mz0 + 5*d13C + dMz),
+#'  rep(rtMin, 2), rep(rtMax, 2))
 #' @export
 GetAreaArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE,Profile=FALSE){
@@ -846,12 +860,18 @@ GetAreaArray =
 #' @param Profile - If TRUE data will presented in profile mode how is was acquired by mass spectrometer, If FALSE data will be presented in peak centroided mode
 #' @return List of data frames of Mass and Intensities for requested averaged spectra
 #' @examples
-#'
+#' Coordinates for the glutamate peak observed in Figure 2A in reference paper
+#' mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;
+#' Get two spectra in profile mode for isotopes envelope at 6th and 8th Minute
+#' Spectra <- GetSpectrumArray(
+#'  rep("Thermo_QE_cells_72h_LA_1", 2),
+#'  rep(mz0 - 1,2),rep(mz0 + 5*d13C + 1,2),
+#'  c(6,8), c(7,9), TRUE)
 #' @export
 GetSpectrumArray =
   function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Profile=FALSE){
     iface = get("iface", envir = WDSLEnvir)
-    ArAr=iface@functions$GetSpectraArray(list(
+    ArAr=iface@functions$GetSpectrumArray(list(
       FileNames=FileNames,
       MZLow=MZLows,
       MZHigh=MZHighs,

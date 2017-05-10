@@ -16,7 +16,7 @@ MassRange object with slots MinMZ,MaxMZ
 }
 \description{
 Get mass range for spectra in file
-Corresponds to mzAccess web-service API function GetMassRange
+Corresponds to mzAccess web-service API function GetMZRange
 }
 \examples{
 GetMZRange("Thermo_QE_cells_72h_LA_3")

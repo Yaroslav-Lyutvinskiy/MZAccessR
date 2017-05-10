@@ -12,8 +12,8 @@ library(devtools)
 install_github("Yaroslav-Lyutvinskiy/MZAccessR")
 # Intialize library:
 library(mzAccessR)
-# Setup Server – by default it is KI mzAccess webserver: 
+# Setup Server ? by default it is KI mzAccess webserver:
 # There will be some warnings from SSOAP level, that is considered as normal
 SetupServer()
 # And then use the functions of package on your demand, for example, like that:
-GetChromatogram("031_MOO_Labeling_HIL_72h_100_3d_MM",148.0584342,148.0624342,0,16)
+GetChromatogram("Thermo_QE_cells_72h_LA_3",148.0584342,148.0624342,0,16)

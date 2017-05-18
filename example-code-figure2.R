@@ -1,3 +1,21 @@
+# *******************************************************************************
+#   Copyright 2015-2017 Yaroslav Lyutvinskiy <Yaroslav.Lyutvinskiy@ki.se> and
+# Roland Nilsson <Roland.Nilsson@ki.se>
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.using System;
+#
+# *******************************************************************************
+
 #
 #	This code reproduces the analysis shown in Figure 2 of the mzAccess paper.
 #
@@ -27,8 +45,7 @@ plot(chrom, type="l")
 #
 
 # Coordinates for the glutamate peak observed in Figure 2A
-mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;
-rtMin <- 8; rtMax <- 9;
+mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;rtMin <- 8; rtMax <- 9;
 
 # Get the unlabeled cell data (left panel in Figure 2B)
 chrom <- GetChromatogramArray(
@@ -55,8 +72,8 @@ lines(chrom[[1]])
 
 #
 # Figure 2C
-#   
-   
+#
+
 # Coordinates for mass isotopomers of interest at the glutamate peak apex
 mzMin <- 149.050; mzMax <- 149.070; rtPeak <- 8.35;
 
@@ -76,10 +93,10 @@ lines(spectra[[2]], col="red")
 
 # Retrieve MZ-RT area data in profile mode, with m/z range as above
 mzMin <- 149.050; mzMax <- 149.070; rtMin <- 8.2; rtMax <- 8.5;
-area <- GetArea("Thermo_QE_cells_72h_UL_1", mzMin, mzMax, rtMin, rtMax, Profile = TRUE) 
+area <- GetArea("Thermo_QE_cells_72h_UL_1", mzMin, mzMax, rtMin, rtMax, Profile = TRUE)
 
 # Since the (MZ, RT, Intensity) values do not form a regular grid,
-# we need do to some interpolation before plotting, here using the akima package 
+# we need do to some interpolation before plotting, here using the akima package
 library(akima)
 akimaData <- interp(area$Mass, area$RT, area$Intensity, duplicate = "median",
             xo=seq(min(area$Mass), max(area$Mass), length=300),

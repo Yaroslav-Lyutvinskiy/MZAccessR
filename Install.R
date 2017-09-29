@@ -16,13 +16,15 @@
 #
 # *******************************************************************************
 
-# package installation is tested for R v.3.3
+# package installation is tested for R v.3.3 and v.3.4
 # mzAccessR depends on SSOAP package for SOAP Server connection."
-# SSOAP enlisted as Bioconductor extras package."
-# Therefore, to get SSOAP package we need to get access to Bioconductor installation system:"
-source("https://bioconductor.org/biocLite.R")
-# And then install SSOAP package:"
-biocLite("SSOAP")
+# SSOAP depends on bitops, XML, RCurl, XMLSchema
+install.packages("bitops")
+install.packages("XML")
+install.packages("RCurl")
+# Packages XMLSchema and SSOAP are aviailable only at omegahat repository
+install.packages("XMLSchema", repos = "http://www.omegahat.net/R")
+install.packages("SSOAP", repos = "http://www.omegahat.net/R")
 # As mzAccessR located on GitHub we need devtools suite:"
 install.packages("devtools")
 library(devtools)

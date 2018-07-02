@@ -404,6 +404,28 @@ setAs('list', 'GetSpectrumbyScanNumberResult.ErrorMessage',
 )
 
 
+setClass( 'GetTotalArrayResult.ErrorMessage' ,
+          representation(
+            GetTotalArrayResult = 'ArrayOfDouble',
+            ErrorMessage = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+
+setAs('list', 'GetTotalArrayResult.ErrorMessage',
+      function (from, to = "GetTotalArrayResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetTotalArrayResult.ErrorMessage"))
+)
+
+setClass( 'GetTotalResult.ErrorMessage' ,
+          representation(
+            GetTotalResult = 'numeric',
+            ErrorMessage = 'character') ,
+          contains = c( 'VirtualSOAPClass' ) )
+
+setAs('list', 'GetTotalResult.ErrorMessage',
+      function (from, to = "GetTotalResult.ErrorMessage", strict = TRUE)
+        coerceListToS4(from, new("GetTotalResult.ErrorMessage")))
+
+
 setMethod("toSOAP", c("logical", "XMLInternalElementNode", type = "PrimitiveSOAPType"),
           function(obj, con = xmlOutputBuffer(header=""), type = NULL, literal = FALSE, elementFormQualified = FALSE, ...)
           {
@@ -905,3 +927,75 @@ GetSpectrumArray =
   }
 
 
+#' Get total in certain LC-MS area.
+#'
+#' Gets sum of the signal for eXtracted Ion Current (XIC) chromatogram for specified LC-MS area.
+#' Corresponds to mzAccess web-service API function GetTotal
+#'
+#' @param FileName - Name of original raw mass spectrometry file. Can be stated with or without path and extention
+#' @param MZLow - Minimum m/z value for LC-MS area requested
+#' @param MZHigh - Maximum m/z value for LC-MS area requested
+#' @param RTLow - Minimum retention time value for LC-MS area requested
+#' @param RTHigh - Maximum retention time value for LC-MS area requested
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @return Double value of total ion current in  for requested LC-MS area
+#' @examples
+#' GetTotal("Thermo_QE_cells_72h_LA_3",148.0584342,148.0624342,0,16)
+#' @export
+#' @import XML
+#' @import XMLSchema
+#' @import SSOAP
+GetTotal =
+  function(FileName, MZLow, MZHigh, RTLow, RTHigh, Cache=TRUE){
+    iface = get("iface", envir = WDSLEnvir)
+    T1=iface@functions$GetTotal(list(
+      FileName=FileName,
+      MZLow=MZLow, MZHigh = MZHigh,
+      RTLow = RTLow, RTHigh = RTHigh ,
+      Cache=Cache))
+    if (is.character(T1@ErrorMessage)) print(T1@ErrorMessage)
+    L=CH1@GetTotalResult
+    return(L)
+  }
+
+
+#' Get Array of Totals for given LC-MS areas.
+#'
+#' Batch analog of GetTotal function.
+#' Gets array of eXtracted Ion Current (XIC) chromatograms for specified LC-MS areas.
+#' Equal length of incoming lists is assumed.
+#' Corresponds to mzAccess web-service API function GetTotalArray
+#'
+#' @param FileNames - List of names of original raw mass spectrometry file.
+#' @param MZLow - List of minimum m/z values for LC-MS areas requested
+#' @param MZHigh - List of maximum m/z values for LC-MS areas requested
+#' @param RTLow - List of minimum retention time values for LC-MS areas requested
+#' @param RTHigh - List of maximum retention time values for LC-MS areas requested
+#' @param Cache - If TRUE data will be loaded from fast access cache, if FALSE - from original raw files
+#' @return List of doubles. Each n-th data frame represent single XIC chromatogram specified
+#'  by n-th members of incoming arrays and consist of
+#'  of Retention Time and Intensities for requested LC-MS area
+#' @examples
+#' Coordinates for the glutamate peak observed in Figure 2A in reference paper
+#' mz0 <- 148.0604342; dMz <- 0.002; d13C <- 1.0033548378;rtMin <- 8; rtMax <- 9;
+#' Get Totals for 1-st and 6-th isotopes
+#'chrom <- GetTotalArray(
+#'  rep("Thermo_QE_cells_72h_LA_1", 2),
+#'  c(mz0-dMz, mz0 + 5*d13C - dMz),
+#'  c(mz0+dMz, mz0 + 5*d13C + dMz),
+#'  rep(rtMin, 2), rep(rtMax, 2))
+#' @export
+GetTotalArray =
+  function(FileNames,MZLows,MZHighs,RTLows,RTHighs,Cache=TRUE){
+    iface = get("iface", envir = WDSLEnvir)
+    Ar=iface@functions$GetTotalArray(list(
+      FileNames=FileNames,
+      MZLow=MZLows,
+      MZHigh=MZHighs,
+      RTLow=RTLows,
+      RTHigh=RTHighs,
+      Cache=Cache))
+    if (is.character(Ar@ErrorMessage)) print(ArAr@ErrorMessage)
+    Res=Ar@GetTotalArrayResult
+    return(Res)
+  }

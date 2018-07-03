@@ -749,7 +749,7 @@ FileList =
     FList =iface@functions$FileList(FileMask)
     if (is.character(FList@ErrorMessage)) print(FList@ErrorMessage)
     L = FList@FileListResult@.Data
-    return(L)
+    return(as.list(L))
   }
 
 
@@ -954,7 +954,7 @@ GetTotal =
       RTLow = RTLow, RTHigh = RTHigh ,
       Cache=Cache))
     if (is.character(T1@ErrorMessage)) print(T1@ErrorMessage)
-    L=CH1@GetTotalResult
+    L=T1@GetTotalResult
     return(L)
   }
 
@@ -995,7 +995,7 @@ GetTotalArray =
       RTLow=RTLows,
       RTHigh=RTHighs,
       Cache=Cache))
-    if (is.character(Ar@ErrorMessage)) print(ArAr@ErrorMessage)
+    if (is.character(Ar@ErrorMessage)) print(Ar@ErrorMessage)
     Res=Ar@GetTotalArrayResult
-    return(Res)
+    return(as.list(Res))
   }

@@ -24,4 +24,3 @@ Web-service will provide first scan number  where RT is not less than specified
 \examples{
 GetRTFromScanNumber("Thermo_QE_cells_72h_LA_3",1000)
 }
-

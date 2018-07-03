@@ -19,4 +19,3 @@ Corresponds to mzAccess web-service API function FileList
 \examples{
 FileList("*72h*")
 }
-

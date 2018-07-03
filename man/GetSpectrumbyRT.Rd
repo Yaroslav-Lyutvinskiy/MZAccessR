@@ -30,4 +30,3 @@ Corresponds to mzAccess web-service API function GetSpectrumbyRT
 \examples{
 GetSpectrumByRT("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RT = 6, Cache = FALSE, Profile = FALSE)
 }
-

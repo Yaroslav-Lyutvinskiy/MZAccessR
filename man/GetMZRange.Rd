@@ -21,4 +21,3 @@ Corresponds to mzAccess web-service API function GetMZRange
 \examples{
 GetMZRange("Thermo_QE_cells_72h_LA_3")
 }
-

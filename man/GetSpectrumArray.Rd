@@ -38,4 +38,3 @@ Spectra <- GetSpectrumArray(
  rep(mz0 - 1,2),rep(mz0 + 5*d13C + 1,2),
  c(6,8), c(7,9), TRUE)
 }
-

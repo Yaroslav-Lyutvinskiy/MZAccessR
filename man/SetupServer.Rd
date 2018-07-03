@@ -20,4 +20,3 @@ All other functions become working only afrter SetupServer call.
 \examples{
 SetupServer()
 }
-

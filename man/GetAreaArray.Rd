@@ -42,4 +42,3 @@ Areas <- GetAreaArray(
  c(mz0+dMz, mz0 + 5*d13C + dMz),
  rep(rtMin, 2), rep(rtMax, 2))
 }
-

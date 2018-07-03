@@ -30,4 +30,3 @@ Averaging algorithm is  vendor specific, therefore function has no cache option
 \examples{
 GetAvgSpectrum("Thermo_QE_cells_72h_LA_3", MZLow = 50, MZHigh = 400, RTLow = 6, RTHigh = 8, Profile = FALSE)
 }
-
